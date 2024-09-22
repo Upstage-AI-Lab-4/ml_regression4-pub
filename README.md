@@ -1,92 +1,60 @@
-# Title (Please modify the title)
-## Team
+Fast-Up Team Report
 
-| ![박패캠](https://avatars.githubusercontent.com/u/156163982?v=4) | ![이패캠](https://avatars.githubusercontent.com/u/156163982?v=4) | ![최패캠](https://avatars.githubusercontent.com/u/156163982?v=4) | ![김패캠](https://avatars.githubusercontent.com/u/156163982?v=4) | ![오패캠](https://avatars.githubusercontent.com/u/156163982?v=4) |
-| :--------------------------------------------------------------: | :--------------------------------------------------------------: | :--------------------------------------------------------------: | :--------------------------------------------------------------: | :--------------------------------------------------------------: |
-|            [박패캠](https://github.com/UpstageAILab)             |            [이패캠](https://github.com/UpstageAILab)             |            [최패캠](https://github.com/UpstageAILab)             |            [김패캠](https://github.com/UpstageAILab)             |            [오패캠](https://github.com/UpstageAILab)             |
-|                            팀장, 담당 역할                             |                            담당 역할                             |                            담당 역할                             |                            담당 역할                             |                            담당 역할                             |
 
-## 0. Overview
-### Environment
-- _Write Development environment_
+### **1. 경진대회 개요**
 
-### Requirements
-- _Write Requirements_
+- 경진대회 주제: 서울시 아파트 실거래가 예측
+- 경진대회 컨셉: 주어진 데이터를 활용하여 서울의 아파트 실거래가를 효과적으로 예측하는 모델을 개발하는 대회
+- 데이터 및 목표: 2007~2023년 6월 서울시 아파트 실거래 데이터, 추가 외부 데이터를 활용하여 2023년 7월 ~ 9월 3개월간의 서울시 아파트 실거래가 예측
+- 활용 장비 및 재료(개발 환경, 협업 tool 등): 모델 학습(VScode, Upstage GPU), 협업(Slack, Zoom), 기록(Notion, Github)
 
-## 1. Competiton Info
 
-### Overview
+### 2**. 경진대회 팀 구성 및 역할** (팀원 별로 주도적으로 참여한 부분을 중심으로 간략히 작성)
 
-- _Write competition information_
+- 성향이 꽤 비슷한 구성원 (3 INTJ + 1 ENTJ)
+- 경진대회 수행 절차 전체를 각자 독립적으로 진행(문제 정의, EDA, 데이터 처리, 모델링, 제출 등)하면서 회의 통해서 좋은 의견 반영, 막히는 부분은 도움 요청을 반복하면서 진행
+    - 최정은(팀장): 하루 3번 안부 인사 나누기(10시, 14시, 18시 30분 회의 진행) / 데이터 탐색, 가설 테스트, 모델링
+    - 변혜영(팀원): 다양한 아이디어 제시 / 시계열 데이터 특성 분석
+    - 조성수(팀원): 대회 경험담 나누어 주기 / 파생변수 고안 및 모델링
+    - 이승민(팀원): 회의시간 오디오 채우기(팀 내 유일한 E) / 데이터 수집, 모델링 및 앙상블, 예측값 조정
 
-### Timeline
 
-- ex) January 10, 2024 - Start Date
-- ex) February 10, 2024 - Final submission deadline
+### 3**. 경진대회 수행 절차 및 방법**
 
-## 2. Components
+- 총 기간 3주(2024년 8월 26일 ~ 2024년 9월 13일)
+- 1주차(2024년 8월 26일 ~ 8월 30일): 제공된 온라인 강의 학습, 팀 빌딩
+- 2주차(2024년 9월 2일 ~ 2024년 9월 6일): 제공된 온라인 강의 학습 마무리, 대회 사전 준비
+- 3주차(2024년 9월 9일 ~ 2024년 9월 13일): 대회 기간
+    - 문제 정의
+    - 데이터 탐색 및 리서치
+    - 결측치/이상치 처리
+    - 파생변수 추가
+    - 모델링
+    - 모델 평가 및 예측
+    - 제출
+    - 다시 전 과정 진행
+    - 앙상블 및 예측값 조정
+    - 파이널 제출
 
-### Directory
 
-- _Insert your directory structure_
+### **4. 경진대회 수행 결과**
 
-e.g.
-```
-├── code
-│   ├── jupyter_notebooks
-│   │   └── model_train.ipynb
-│   └── train.py
-├── docs
-│   ├── pdf
-│   │   └── (Template) [패스트캠퍼스] Upstage AI Lab 1기_그룹 스터디 .pptx
-│   └── paper
-└── input
-    └── data
-        ├── eval
-        └── train
-```
+- 활용변수(위치정보 중심): 크게 3가지로 나누어 진행(아파트 매물 자체, 아파트 단지 정보, 주변 환경 정보)
+- 활용변수(직전거래가격 중심): unique아파트 + 층수 활용해 직전거래가격 생성(unique아파트 거래 가격 > 상세아파트명 평균 가격 > 위치한 동 평균 가격 > 위치한 구 평균 가격
+- 모델링 및 앙상블: 테스트 모델(LightGBM, RamdomForest, Xgboost, Catboost 등) 중 LigthGBM 앙상블(5:5)로 사용
+- 예측값 조정: 이전가격이 Test Set 3개월간 동일하게 적용된 것을 직전 3개월 가격 기준으로, Linear Regression으로 Test Set 기간 3개월 가격 예측치 생성한 뒤 상대가격 계산하고 앙상블 예측값에 반영
+- 최종 2위(Final RMSE: 11929 / Mid RMSE: 15153)
 
-## 3. Data descrption
 
-### Dataset overview
+### **5. 자체 평가 의견**
 
-- _Explain using data_
-
-### EDA
-
-- _Describe your EDA process and step-by-step conclusion_
-
-### Data Processing
-
-- _Describe data processing process (e.g. Data Labeling, Data Cleaning..)_
-
-## 4. Modeling
-
-### Model descrition
-
-- _Write model information and why your select this model_
-
-### Modeling Process
-
-- _Write model train and test process with capture_
-
-## 5. Result
-
-### Leader Board
-
-- _Insert Leader Board Capture_
-- _Write rank and score_
-
-### Presentation
-
-- _Insert your presentaion file(pdf) link_
-
-## etc
-
-### Meeting Log
-
-- _Insert your meeting log link like Notion or Google Docs_
-
-### Reference
-
-- _Insert related reference_
+- 성과 및 배운 점
+    - 부동산 가격에 영향을 줄 것이라고 생각한 파생변수들이 모델링 상으로도 중요하게 활용됨(특히 이전가격)
+    - 모델링 이전에 데이터 자체가 매우 중요하다는 것을 배웠음. 이후로는 모델링보다 데이터 분석에 더 많은 시간을 써야겠다는 것을 깨달음
+    - 리더보드에서 상대적으로 점수가 낮게 나온 모델이라고 하더라도, 가설과 검증된 결과에 대한 신뢰가 있다면 좀 더 믿어줄 필요가 있음
+    - 대회 진행에 관한 문서화를 좀 더 잘하면 좋을 것 같음(MLOps)
+- 한계 및 아쉬운 점
+    - 앙상블의 최적 가중치를 체계적으로 도출하지 못하고 단순 평균으로 계산
+    - Test Set의 7~9월 가격 상승률을 최종 예측치에서 보정하는 것에 문제가 없는 것인지 (독립변수로 반영했어야 하는 것인지) 검증하지 못함. 하나의 모델로 통합하지 못함
+    - 예측 성과가 상당부분 '기도와 운'에 의해 좋아진 것 같아 아쉬움
+    - 딥러닝 모델을 시도했지만 잘 되지 않았음
